@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-endorser-files
+data:
+  {{- $files := .Files }}
+  {{- range $path, $_ :=  .Files.Glob  "files/services/endorser/**" }}
+  {{ base $path }}: |
+{{ $files.Get $path | indent 4 }}
+  {{- end }}

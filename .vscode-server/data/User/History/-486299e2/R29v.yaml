@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "traction-docker.fullname" . }}-traction-agent
+spec:
+  replicas: {{ .Values.tractionAgent.replicas }}
+  selector:
+    matchLabels:
+      app: traction-agent
+  template:
+    metadata:
+      labels:
+        app: traction-agent
+    spec:
+      containers:
+        - name: traction-agent
+          image: "{{ .Values.tractionAgent.image.repository }}:{{ .Values.tractionAgent.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.tractionAgent.service.port }}
+          env:
+            {{- range $key, $value := .Values.tractionAgent.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: plugin-config
+              mountPath: /home/aries/plugin-config.yml
+              subPath: plugin-config.yml
+            - name: ledgers
+              mountPath: /home/aries/ledgers.yml
+              subPath: ledgers.yml
+      volumes:
+        - name: plugin-config
+          configMap:
+            name: {{ include "traction-docker.fullname" . }}-config
+        - name: ledgers
+          configMap:
+            name: {{ include "traction-docker.fullname" . }}-config

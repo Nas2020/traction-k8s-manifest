@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tenant-proxy
+  namespace: digicred-crms
+spec:
+  ports:
+    - port: 8032
+      targetPort: 8080
+  selector:
+    app: tenant-proxy

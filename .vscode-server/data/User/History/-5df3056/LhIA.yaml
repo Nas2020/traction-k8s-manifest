@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: endorser-agent-1-config
+data:
+  ACAPY_ENDORSER_1_ADMIN_PORT: "9033"
+  ACAPY_ENDORSER_1_HTTP_PORT: "9032"
+  ACAPY_ENDORSER_1_ENDPOINT: "http://a7d57e42b10354295a32f55bcdd13790-828573145.us-west-1.elb.amazonaws.com/endorser2"
+  ENDORSER_AGENT_NAME: "Endorser Agent 1"
+  ENDORSER_1_ACAPY_READ_ONLY_MODE: ""
+  ENDORSER_1_WEBHOOK_URL: "http://endorser-api-1:5001/webhook"
+  ACAPY_GENESIS_URL_1: "http://genesis.digicred.services:9000/genesis"
+  ENDORSER_1_ACAPY_WALLET_TYPE: "askar"
+  ENDORSER_1_ACAPY_WALLET_STORAGE_TYPE: "postgres_storage"
+  ENDORSER_1_ACAPY_WALLET_DATABASE: "endorser-wallet-1"
+  ENDORSER_1_POSTGRESQL_HOST: "endorser-db-1"
+  POSTGRESQL_DB: "traction_acapy"

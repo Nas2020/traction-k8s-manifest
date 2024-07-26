@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traction-plugin-config
+data:
+  plugin-config.yml: |
+    # Content of your plugin-config.yml file

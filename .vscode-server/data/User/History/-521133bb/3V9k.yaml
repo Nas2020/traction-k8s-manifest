@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-tenant-ui
+  labels:
+    {{- include "digicred-traction.labels" . | nindent 4 }}
+    app.kubernetes.io/component: tenant-ui
+spec:
+  type: {{ .Values.tenantUi.service.type }}
+  ports:
+    - port: {{ .Values.tenantUi.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "digicred-traction.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: tenant-ui

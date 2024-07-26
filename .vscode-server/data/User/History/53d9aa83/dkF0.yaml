@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endorser-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endorser-api
+  template:
+    metadata:
+      labels:
+        app: endorser-api
+    spec:
+      containers:
+      - name: endorser-api
+        image: ghcr.io/nas2020/endorser-api:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: endorser-api-config
+        - secretRef:
+            name: endorser-api-secrets
+        env:
+        - name: ACAPY_ADMIN_URL
+          value: "http://endorser-agent:9031"

@@ -1,0 +1,12 @@
+Listening on 127.0.0.1:38229
+[2024-06-24 09:01:26] info Disposed of connection to running server.
+looking for token 988a9821-ca53-465c-b248-5cd972da56bb, got Some("988a9821-ca53-465c-b248-5cd972da56bb")
+[2024-06-24 09:01:26] info Checking /home/ec2-user/.vscode-server/cli/servers/Stable-5437499feb04f7a586f677b155b039bc2b3669eb/log.txt and /home/ec2-user/.vscode-server/cli/servers/Stable-5437499feb04f7a586f677b155b039bc2b3669eb/pid.txt for a running server...
+[2024-06-24 09:01:26] info Starting server...
+[2024-06-24 09:01:26] info Server started
+[2024-06-24 09:01:32] info Disposed of connection to running server.
+[2024-06-24 09:01:33] info Disposed of connection to running server.
+looking for token 988a9821-ca53-465c-b248-5cd972da56bb, got Some("988a9821-ca53-465c-b248-5cd972da56bb")
+[2024-06-24 09:01:33] info Checking /home/ec2-user/.vscode-server/cli/servers/Stable-5437499feb04f7a586f677b155b039bc2b3669eb/log.txt and /home/ec2-user/.vscode-server/cli/servers/Stable-5437499feb04f7a586f677b155b039bc2b3669eb/pid.txt for a running server...
+[2024-06-24 09:01:33] info Found running server (pid=45363)
+[2024-06-24 09:02:12] info Disposed of connection to running server.

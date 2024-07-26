@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endorser-api
+  namespace: digicred-crms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endorser-api
+  template:
+    metadata:
+      labels:
+        app: endorser-api
+    spec:
+      containers:
+      - name: endorser-api
+        image: ghcr.io/nas2020/endorser-api:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: POSTGRESQL_HOST
+          value: "endorser-db"
+        - name: POSTGRESQL_PORT
+          value: "5432"
+        - name: POSTGRESQL_DB
+          value: "traction"
+        - name: ENDORSER_API_ADMIN_USER
+          value: "endorser"
+        - name: ACAPY_ADMIN_URL
+          value: "http://endorser-agent:8031"
+        - name: ENVIRONMENT
+          value: "production"
+        - name: TRACTION_WEBHOOK_URL
+          value: "http://endorser-api:5000/webhook"
+        - name: ENDORSER_API_PORT
+          value: "5000"
+        envFrom:
+        - configMapRef:
+            name: digicred-config
+        - secretRef:
+            name: digicred-secrets

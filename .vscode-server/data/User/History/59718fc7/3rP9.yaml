@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endorser-db
+  namespace: digicred-crms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endorser-db
+  template:
+    metadata:
+      labels:
+        app: endorser-db
+    spec:
+      containers:
+      - name: endorser-db
+        image: postgres:14.5
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: digicred-secrets
+              key: POSTGRESQL_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: digicred-secrets
+              key: ENDORSER_POSTGRESQL_PASSWORD
+        - name: POSTGRES_DB
+          value: "traction"
+        volumeMounts:
+        - name: endorser-db-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: endorser-db-data
+        persistentVolumeClaim:
+          claimName: endorser-wallet

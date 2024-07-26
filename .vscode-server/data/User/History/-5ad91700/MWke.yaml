@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traction-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traction-agent
+  template:
+    metadata:
+      labels:
+        app: traction-agent
+    spec:
+      containers:
+      - name: traction-agent
+        image: ghcr.io/nas2020/traction-agent:latest
+        ports:
+        - containerPort: 8030
+        - containerPort: 8031
+        envFrom:
+        - configMapRef:
+            name: traction-agent-config
+        - secretRef:
+            name: traction-agent-secrets
+        volumeMounts:
+        - name: plugin-config
+          mountPath: /home/aries/plugin-config.yml
+          subPath: plugin-config.yml
+        - name: ledgers-config
+          mountPath: /home/aries/ledgers.yml
+          subPath: ledgers.yml
+      volumes:
+      - name: plugin-config
+        configMap:
+          name: traction-plugin-config
+      - name: ledgers-config
+        configMap:
+          name: traction-ledgers-config

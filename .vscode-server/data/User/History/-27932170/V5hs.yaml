@@ -1,0 +1,27 @@
+apiVersion: v2
+name: digicred-traction
+description: DigiCred CRMS is a next-generation credential management system built on the robust Traction framework. This advanced service empowers organizations to efficiently verify, hold, and issue verifiable credentials, ensuring seamless and secure credential management. With the DigiCred Tenant UI, tenants gain intuitive control over their agents, facilitating easy management and deployment of digital credentials. The system’s cutting-edge technology and user-friendly interface make it an ideal solution for modern credentialing needs, promoting trust and security in digital interactions.
+type: application
+version: 0.3.1
+appVersion: 0.4.2
+home: "https://github.com/digicred/traction"
+sources:
+  - "https://github.com/digicred/traction"
+icon: "https://github.com/digicred/traction/raw/main/docs/assets/readme-logo.png"
+maintainers:
+  - email: your-email@example.com
+    name: Your Name
+    url: https://github.com/your-username
+  - email: another-email@example.com
+    name: Another Maintainer
+    url: https://github.com/another-username
+dependencies:
+  - name: postgresql
+    version: 11.9.13
+    repository: https://charts.bitnami.com/bitnami/
+    condition: postgresql.enabled
+  - name: common
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - bitnami-common
+    version: 2.x.x

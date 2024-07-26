@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-tenant-ui
+  labels:
+    {{- include "digicred-traction.labels" . | nindent 4 }}
+    app.kubernetes.io/component: tenant-ui
+spec:
+  replicas: {{ .Values.tenantUi.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "digicred-traction.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: tenant-ui
+  template:
+    metadata:
+      labels:
+        {{- include "digicred-traction.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: tenant-ui
+    spec:
+      containers:
+        - name: tenant-ui
+          image: "{{ .Values.tenantUi.image.repository }}:{{ .Values.tenantUi.image.tag }}"
+          imagePullPolicy: {{ .Values.tenantUi.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: SERVER_TRACTION_URL
+              value: {{ .Values.tenantUi.env.serverTractionUrl }}
+            - name: FRONTEND_TENANT_PROXY_URL
+              value: {{ .Values.tenantUi.env.frontendTenantProxyUrl }}
+            - name: IMAGE_BUILDTIME
+              value: {{ .Values.tenantUi.env.imageBuildtime | quote }}
+            - name: IMAGE_TAG
+              value: {{ .Values.tenantUi.image.tag }}
+            - name: IMAGE_VERSION
+              value: {{ .Values.tenantUi.env.imageVersion | quote }}
+            - name: UX_APP_TITLE
+              value: {{ .Values.tenantUi.env.uxAppTitle }}
+            - name: UX_APP_INNKEEPER_TITLE
+              value: {{ .Values.tenantUi.env.uxAppInnkeeperTitle }}
+            - name: UX_SIDEBAR_TITLE
+              value: {{ .Values.tenantUi.env.uxSidebarTitle }}
+            - name: UX_COPYRIGHT
+              value: {{ .Values.tenantUi.env.uxCopyright }}
+            - name: UX_OWNER
+              value: {{ .Values.tenantUi.env.uxOwner }}
+            - name: FRONTEND_QUICK_CONNECT_ENDORSER_NAME
+              value: {{ .Values.tenantUi.env.frontendQuickConnectEndorserName }}
+            - name: SERVER_SMTP_SERVER
+              value: {{ .Values.tenantUi.env.serverSmtpServer }}
+            - name: SERVER_SMTP_PORT
+              value: {{ .Values.tenantUi.env.serverSmtpPort | quote }}
+          resources:
+            {{- toYaml .Values.tenantUi.resources | nindent 12 }}

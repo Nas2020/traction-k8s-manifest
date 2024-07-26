@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-tenant-proxy
+  labels:
+    {{- include "digicred-traction.labels" . | nindent 4 }}
+    app.kubernetes.io/component: tenant-proxy
+spec:
+  type: {{ .Values.tenantProxy.service.type }}
+  ports:
+    - port: {{ .Values.tenantProxy.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "digicred-traction.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: tenant-proxy

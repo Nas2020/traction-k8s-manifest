@@ -1,0 +1,39 @@
+2024-07-24 19:26:59.262 [info] Extension host with pid 3567 started
+2024-07-24 19:26:59.262 [error] Error: EEXIST: file already exists, open '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955/vscode.lock'
+2024-07-24 19:26:59.280 [info] Lock '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955/vscode.lock': Could not acquire lock, checking if the file is stale.
+2024-07-24 19:26:59.495 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+2024-07-24 19:26:59.592 [info] Lock '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955/vscode.lock': The lock does not look stale, elapsed: 671 ms, giving up.
+2024-07-24 19:26:59.613 [info] Lock '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955-1/vscode.lock': Lock acquired.
+2024-07-24 19:27:00.049 [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+2024-07-24 19:27:00.051 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2024-07-24 19:27:00.756 [info] Eager extensions activated
+2024-07-24 19:27:00.756 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2024-07-24 19:27:00.757 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2024-07-24 19:27:00.758 [info] ExtensionService#_doActivateExtension PascalReitermann93.vscode-yaml-sort, startup: false, activationEvent: 'onStartupFinished'
+2024-07-24 19:27:00.899 [info] ExtensionService#_doActivateExtension vscode.tunnel-forwarding, startup: false, activationEvent: 'onTunnel'
+2024-07-24 19:28:26.592 [info] ExtensionService#_doActivateExtension vscode.npm, startup: false, activationEvent: 'onTerminalQuickFixRequest:ms-vscode.npm-command'
+2024-07-24 19:29:21.013 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2024-07-25 02:29:53.493 [info] ExtensionService#_doActivateExtension vscode.configuration-editing, startup: false, activationEvent: 'onLanguage:json'
+2024-07-25 02:29:53.494 [info] ExtensionService#_doActivateExtension vscode.extension-editing, startup: false, activationEvent: 'onLanguage:json'
+2024-07-25 02:29:53.494 [info] ExtensionService#_doActivateExtension vscode.json-language-features, startup: false, activationEvent: 'onLanguage:json'
+2024-07-25 04:11:34.516 [info] Extension host with pid 24812 started
+2024-07-25 04:11:34.535 [info] Lock '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955/vscode.lock': Lock acquired.
+2024-07-25 04:11:34.632 [info] ExtensionService#_doActivateExtension vscode.tunnel-forwarding, startup: false, activationEvent: 'onTunnel'
+2024-07-25 04:11:34.634 [info] ExtensionService#_doActivateExtension vscode.npm, startup: false, activationEvent: 'onTerminalQuickFixRequest:ms-vscode.npm-command'
+2024-07-25 04:11:34.637 [info] ExtensionService#_doActivateExtension vscode.emmet, startup: false, activationEvent: 'onLanguage'
+2024-07-25 04:11:34.637 [info] ExtensionService#_doActivateExtension vscode.configuration-editing, startup: false, activationEvent: 'onLanguage:json'
+2024-07-25 04:11:34.638 [info] ExtensionService#_doActivateExtension vscode.extension-editing, startup: false, activationEvent: 'onLanguage:json'
+2024-07-25 04:11:34.638 [info] ExtensionService#_doActivateExtension vscode.json-language-features, startup: false, activationEvent: 'onLanguage:json'
+2024-07-25 04:11:35.339 [info] ExtensionService#_doActivateExtension vscode.git-base, startup: true, activationEvent: '*', root cause: vscode.git
+2024-07-25 04:11:35.449 [info] ExtensionService#_doActivateExtension vscode.git, startup: true, activationEvent: '*'
+2024-07-25 04:11:35.449 [info] ExtensionService#_doActivateExtension vscode.github, startup: true, activationEvent: '*'
+2024-07-25 04:11:35.815 [info] Eager extensions activated
+2024-07-25 04:11:35.815 [info] ExtensionService#_doActivateExtension vscode.debug-auto-launch, startup: false, activationEvent: 'onStartupFinished'
+2024-07-25 04:11:35.816 [info] ExtensionService#_doActivateExtension vscode.merge-conflict, startup: false, activationEvent: 'onStartupFinished'
+2024-07-25 04:11:35.817 [info] ExtensionService#_doActivateExtension PascalReitermann93.vscode-yaml-sort, startup: false, activationEvent: 'onStartupFinished'
+2024-07-25 04:16:33.270 [info] Extension host terminating: renderer disconnected for too long (2)
+2024-07-25 04:16:33.271 [info] Lock '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955-1/vscode.lock': Marking the lockfile as scheduled to be released in 6000 ms.
+2024-07-25 04:16:33.303 [info] Extension host with pid 3567 exiting with code 0
+2024-07-25 07:56:38.324 [info] Extension host terminating: renderer disconnected for too long (2)
+2024-07-25 07:56:38.325 [info] Lock '/home/ec2-user/.vscode-server/data/User/workspaceStorage/2e59bcc7daae21a50b1a906392738955/vscode.lock': Marking the lockfile as scheduled to be released in 6000 ms.
+2024-07-25 07:56:38.355 [info] Extension host with pid 24812 exiting with code 0

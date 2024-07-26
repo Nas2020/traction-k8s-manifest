@@ -1,0 +1,60 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: digicred-crms
+
+resources:
+  - namespace/namespace.yaml
+  - config/configmap.yaml
+  - config/secrets.yaml
+  - storage/persistent-volume-claims.yaml
+  - deployments/traction-agent.yaml
+  - deployments/traction-db.yaml
+  - deployments/tenant-ui.yaml
+  - deployments/tenant-proxy.yaml
+  - deployments/endorser-api.yaml
+  - deployments/endorser-agent.yaml
+  - deployments/endorser-db.yaml
+  - deployments/endorser-api-1.yaml
+  - deployments/endorser-agent-1.yaml
+  - deployments/endorser-db-1.yaml
+  - deployments/maildev.yaml
+  - services/traction-agent-service.yaml
+  - services/traction-db-service.yaml
+  - services/tenant-ui-service.yaml
+  - services/tenant-proxy-service.yaml
+  - services/endorser-api-service.yaml
+  - services/endorser-agent-service.yaml
+  - services/endorser-db-service.yaml
+  - services/endorser-api-1-service.yaml
+  - services/endorser-agent-1-service.yaml
+  - services/endorser-db-1-service.yaml
+  - services/maildev-service.yaml
+  - ingress/ingress.yaml
+
+commonLabels:
+  app: digicred-crms
+
+configMapGenerator:
+- name: digicred-config
+  files:
+  - plugin-config.yml
+  - ledgers.yml
+  - endorser-acapy-args.yml
+
+secretGenerator:
+- name: digicred-secrets
+  envs:
+  - .env
+
+images:
+- name: ghcr.io/nas2020/traction-agent
+  newTag: latest
+- name: ghcr.io/nas2020/tenant-ui
+  newTag: latest
+- name: ghcr.io/nas2020/tenant-proxy
+  newTag: latest
+- name: ghcr.io/nas2020/endorser-api
+  newTag: latest
+- name: ghcr.io/hyperledger/aries-cloudagent-python
+  newTag: py3.9-0.11.0

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-tenant-proxy
+  labels:
+    {{- include "digicred-traction.labels" . | nindent 4 }}
+    app.kubernetes.io/component: tenant-proxy
+spec:
+  replicas: {{ .Values.tenantProxy.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "digicred-traction.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: tenant-proxy
+  template:
+    metadata:
+      labels:
+        {{- include "digicred-traction.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: tenant-proxy
+    spec:
+      containers:
+        - name: tenant-proxy
+          image: "{{ .Values.tenantProxy.image.repository }}:{{ .Values.tenantProxy.image.tag }}"
+          imagePullPolicy: {{ .Values.tenantProxy.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: ACAPY_ADMIN_URL
+              value: {{ .Values.tenantProxy.env.acapyAdminUrl }}
+            - name: ACAPY_ADMIN_URL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "digicred-traction.fullname" . }}-secret
+                  key: ACAPY_ADMIN_API_KEY
+          resources:
+            {{- toYaml .Values.tenantProxy.resources | nindent 12 }}

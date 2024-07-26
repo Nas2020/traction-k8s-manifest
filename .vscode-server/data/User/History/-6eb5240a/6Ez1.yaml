@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-secret
+type: Opaque
+data:
+  POSTGRESQL_PASSWORD: {{ .Values.postgresql.auth.password | b64enc }}
+  ACAPY_ADMIN_API_KEY: {{ .Values.acapy.adminApiKey | b64enc }}
+  ENDORSER_API_ADMIN_KEY: {{ .Values.endorserApi.adminKey | b64enc }}
+  ENDORSER_ACAPY_ADMIN_URL_API_KEY: {{ .Values.endorserApi.acapyAdminUrlApiKey | b64enc }}
+  ENDORSER_ACAPY_WEBHOOK_URL_API_KEY: {{ .Values.endorserApi.acapyWebhookUrlApiKey | b64enc }}
+
+

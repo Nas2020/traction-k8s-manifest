@@ -1,0 +1,19 @@
+global:
+  environment: production
+
+tractionAgent:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/nas2020/traction-agent
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+
+postgresql:
+  enabled: true
+  auth:
+    password: changeme
+
+# Add other service configurations

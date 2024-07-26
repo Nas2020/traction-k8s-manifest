@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: endorser-agent-1-secrets
+type: Opaque
+data:
+  ACAPY_ENDORSER_SEED_1: RGlnaUNyZWRTZWVkTmFzVDAwMDAwMDAwMDAwMDAwMDI=  # base64 encoded 'DigiCredSeedNasT0000000000000002'
+  ENDORSER_ACAPY_WALLET_ENCRYPTION_KEY: a2V5  # base64 encoded 'key'
+  ENDORSER_ACAPY_ADMIN_URL_API_KEY: Y2hhbmdlLW1l  # base64 encoded 'change-me'

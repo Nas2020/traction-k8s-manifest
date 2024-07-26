@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tenant-ui
+  namespace: digicred-crms
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5101
+      targetPort: 8080
+  selector:
+    app: tenant-ui

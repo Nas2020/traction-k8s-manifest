@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: traction-db
+  labels:
+    app: traction-db
+spec:
+  serviceName: "traction-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traction-db
+  template:
+    metadata:
+      labels:
+        app: traction-db
+    spec:
+      securityContext:
+        fsGroup: 999
+        runAsUser: 999
+      containers:
+      - name: traction-db
+        image: postgres:14.5
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: traction-db-secrets
+              key: POSTGRESQL_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: traction-db-secrets
+              key: POSTGRESQL_PASSWORD
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: traction-db-config
+              key: POSTGRESQL_DB
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: traction-db-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: traction-db-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "gp2"
+      resources:
+        requests:
+          storage: 1Gi

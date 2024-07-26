@@ -1,0 +1,25 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: digicred-crms-test-eks
+  region: us-west-1
+  tags:
+    Environment: Test
+    Project: DigiCred-CRMS
+
+managedNodeGroups:
+  - name: ng-1
+    instanceType: t3.medium
+    minSize: 2
+    maxSize: 4
+    desiredCapacity: 2
+    privateNetworking: true
+    tags:
+      Environment: Test
+      Project: DigiCred-CRMS
+
+addons:
+  - name: vpc-cni
+  - name: coredns
+  - name: kube-proxy

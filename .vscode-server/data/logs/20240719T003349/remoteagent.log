@@ -1,0 +1,28 @@
+2024-07-19 00:33:49.760 [info] 
+
+
+
+
+2024-07-19 00:33:49.775 [info] Extension host agent started.
+2024-07-19 00:33:49.969 [info] [<unknown>][7cb9c771][ManagementConnection] New connection established.
+2024-07-19 00:33:49.972 [info] [<unknown>][e1aa8c23][ExtensionHostConnection] New connection established.
+2024-07-19 00:33:50.054 [info] [<unknown>][e1aa8c23][ExtensionHostConnection] <1050380> Launched Extension Host Process.
+2024-07-19 00:33:55.758 [info] [<unknown>][c3eeeb59][ExtensionHostConnection] New connection established.
+2024-07-19 00:33:55.758 [info] [<unknown>][2978a86f][ManagementConnection] New connection established.
+2024-07-19 00:33:55.764 [info] [<unknown>][c3eeeb59][ExtensionHostConnection] <1050450> Launched Extension Host Process.
+2024-07-19 00:34:24.786 [info] [<unknown>][7cb9c771][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2024-07-19 00:38:49.776 [info] New EH opened, aborting shutdown
+2024-07-19 00:38:55.970 [info] [<unknown>][e1aa8c23][ExtensionHostConnection] <1050380> Extension Host Process exited with code: 0, signal: null.
+2024-07-19 01:17:45.273 [info] [<unknown>][7cb9c771][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2024-07-19 01:17:45.275 [info] [<unknown>][2978a86f][ManagementConnection] The client has reconnected.
+2024-07-19 01:18:18.097 [info] [<unknown>][c3eeeb59][ExtensionHostConnection] The client has reconnected.
+2024-07-19 01:22:45.337 [info] [<unknown>][7cb9c771][ManagementConnection] The reconnection short grace time of 5m has expired, so the connection will be disposed.
+2024-07-19 01:22:45.340 [error] Error: Unexpected SIGPIPE
+    at process.<anonymous> (/home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/server/out/vs/server/node/server.main.js:192:6383)
+    at process.emit (node:events:518:28)
+2024-07-19 02:15:08.652 [warning] [File Watcher (node.js)] Watcher shutdown because watched path got deleted
+2024-07-19 04:33:47.470 [info] [<unknown>][2978a86f][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2024-07-19 07:33:27.539 [info] [<unknown>][c3eeeb59][ExtensionHostConnection] <1050450> Extension Host Process exited with code: 0, signal: null.
+2024-07-19 07:33:27.540 [info] Last EH closed, waiting before shutting down
+2024-07-19 07:33:54.451 [info] [<unknown>][2978a86f][ManagementConnection] The reconnection grace time of 3h has expired, so the connection will be disposed.
+2024-07-19 07:38:27.541 [info] Last EH closed, shutting down

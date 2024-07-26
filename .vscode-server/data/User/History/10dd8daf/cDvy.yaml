@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tenant-proxy
+  namespace: digicred-crms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tenant-proxy
+  template:
+    metadata:
+      labels:
+        app: tenant-proxy
+    spec:
+      containers:
+      - name: tenant-proxy
+        image: ghcr.io/nas2020/tenant-proxy:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ACAPY_ADMIN_URL
+          value: "http://traction-agent:8031"
+        - name: ACAPY_ADMIN_URL_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: digicred-secrets
+              key: ACAPY_ADMIN_API_KEY

@@ -1,0 +1,61 @@
+global:
+  environment: production
+
+tractionAgent:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/nas2020/traction-agent
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+
+postgresql:
+  enabled: true
+  auth:
+    password: changeme
+    
+tractionDb:
+  image:
+    repository: postgres
+    tag: "14.5"
+    pullPolicy: IfNotPresent
+  auth:
+    username: postgres
+    database: traction
+  service:
+    port: 5432
+  persistence:
+    size: 8Gi
+    storageClass: ""
+
+tenantUi:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/nas2020/tenant-ui
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+  env:
+    serverTractionUrl: "http://traction-agent:8080"
+    frontendTenantProxyUrl: "http://tenant-proxy:8080"
+    imageBuildtime: ""
+    imageVersion: ""
+    uxAppTitle: "DigiCred Traction"
+    uxAppInnkeeperTitle: "DigiCred Innkeeper"
+    uxSidebarTitle: "DigiCred"
+    uxCopyright: "© 2023 DigiCred"
+    uxOwner: "DigiCred"
+    frontendQuickConnectEndorserName: "DigiCred Endorser"
+    serverSmtpServer: maildev
+    serverSmtpPort: "1025"
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi

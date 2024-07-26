@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traction-agent
+spec:
+  selector:
+    app: traction-agent
+  ports:
+    - name: http
+      port: 8030
+      targetPort: 8030
+    - name: admin
+      port: 8031
+      targetPort: 8031

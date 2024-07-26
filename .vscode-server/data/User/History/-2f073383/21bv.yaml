@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traction-ledgers-config
+data:
+  ledgers.yml: |
+    # Content of your ledgers.yml file

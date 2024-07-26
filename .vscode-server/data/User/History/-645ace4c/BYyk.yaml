@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: endorser-api-secrets
+type: Opaque
+data:
+  ENDORSER_API_ADMIN_USER: ZW5kb3JzZXI=  # base64 encoded 'endorser'
+  ENDORSER_API_ADMIN_KEY: Y2hhbmdlLW1l  # base64 encoded 'change-me'
+  ACAPY_ADMIN_URL_API_KEY: Y2hhbmdlLW1l  # base64 encoded 'change-me'
+  ACAPY_WEBHOOK_URL_API_KEY: MTIzNA==  # base64 encoded '1234'

@@ -1,0 +1,449 @@
+nameOverride: ""
+fullnameOverride: ""
+ingressSuffix: "digicred.services"
+
+acapy:
+  image:
+    repository: your-docker-repo/traction-acapy
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    automountServiceAccountToken: true
+    name: ""
+
+  replicaCount: 1
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+    stabilizationWindowSeconds: 300
+
+  argfile.yml:
+    auto-accept-invites: true
+    auto-accept-requests: true
+    auto-create-revocation-transactions: true
+    auto-ping-connection: true
+    auto-promote-author-did: true
+    auto-provision: true
+    auto-request-endorsement: true
+    auto-respond-credential-offer: false
+    auto-respond-credential-proposal: false
+    auto-respond-credential-request: true
+    auto-respond-messages: true
+    auto-respond-presentation-proposal: true
+    auto-respond-presentation-request: false
+    auto-store-credential: true
+    auto-verify-presentation: true
+    auto-write-transactions: true
+    emit-new-didcomm-mime-type: true
+    emit-new-didcomm-prefix: true
+    endorser-alias: endorser
+    endorser-protocol-role: author
+    genesis-transactions-list: /home/aries/ledgers.yml
+    label: '{{ include "acapy.label" .}}'
+    log-level: info
+    monitor-ping: true
+    monitor-revocation-notification: true
+    multitenant-admin: true
+    multitenant: true
+    notify-revocation: true
+    preserve-exchange-records: true
+    public-invites: true
+    read-only-ledger: false
+    tails-server-base-url: https://tails-test.vonx.io
+    tails-server-upload-url: https://tails-test.vonx.io
+    wallet-name: askar-wallet
+    wallet-storage-type: postgres_storage
+    wallet-type: askar
+
+  ledgers.yml:
+    - id: digicred-test
+      is_production: true
+      is_write: true
+      genesis_url: "http://genesis.digicred.services:9000/genesis"
+      endorser_did: "6f5Q4P6wbBz18NWagTUXNL"
+      endorser_alias: "digicred-test-endorser"
+    - id: digicred-test-1
+      is_production: true
+      is_write: true
+      genesis_url: "http://genesis.digicred.services:9000/genesis"
+      endorser_did: "SStjc7Ykg493TQPC4BVgDV"
+      endorser_alias: "digicred-test-endorser-1"
+
+  walletStorageConfig:
+    json: ""
+    url: "traction-db"
+    max_connections: 10
+    wallet_scheme: DatabasePerWallet
+
+  walletStorageCredentials:
+    json: ''
+    account: postgres
+    admin_account: postgres
+    existingSecret: ""
+    secretKeys:
+      adminPasswordKey: postgresPass
+      userPasswordKey: postgresPass
+
+  plugins:
+    basicmessageStorage: true
+    connectionUpdate: true
+    multitenantProvider: true
+    tractionInnkeeper: true
+    rpc: true
+
+  plugin-config.yml:
+    multitenant_provider:
+      manager:
+        class_name: multitenant_provider.v1_0.manager.AskarMultitokenMultitenantManager
+        always_check_provided_wallet_key: true
+      errors:
+        on_unneeded_wallet_key: false
+      token_expiry:
+        units: months
+        amount: 3
+
+    traction_innkeeper:
+      innkeeper_wallet:
+        tenant_id: innkeeper
+        wallet_name: traction_innkeeper
+        wallet_key: change-me
+        print_key: true
+        print_token: true
+        connect_to_endorser:
+          - endorser_alias: digicred-test-endorser
+            ledger_id: digicred-test
+          - endorser_alias: digicred-test-endorser-1
+            ledger_id: digicred-test-1
+        create_public_did:
+          - digicred-test
+          - digicred-test-1
+      reservation:
+        expiry_minutes: 2880
+        auto_approve: true
+        auto_issuer: true
+    basicmessage_storage:
+      wallet_enabled: true
+
+  persistence:
+    existingClaim: ""
+    mountPath: /home/aries/.indy_client/tails
+    storageClass: ""
+    accessModes:
+      - ReadWriteMany
+    size: 1Gi
+
+  resources:
+    limits:
+      cpu: 300m
+      memory: 300Mi
+    requests:
+      cpu: 120m
+      memory: 200Mi
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  containerSecurityContext: {}
+  service:
+    type: ClusterIP
+    adminPort: 8031
+    httpPort: 8030
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+
+  networkPolicy:
+    enabled: false
+    ingress:
+      enabled: false
+      namespaceSelector: {}
+      podSelector: {}
+
+  openshift:
+    route:
+      enabled: false
+      path: "/"
+      targetPort: http
+      timeout: 2m
+      tls:
+        enabled: true
+        insecureEdgeTerminationPolicy: None
+        termination: edge
+      wildcardPolicy: None
+    adminRoute:
+      enabled: false
+      path: "/"
+      targetPort: admin
+      timeout: 2m
+      tls:
+        enabled: true
+        insecureEdgeTerminationPolicy: None
+        termination: edge
+      wildcardPolicy: None
+
+  secret:
+    adminApiKey:
+      generated: false
+      value: "digicred-me"
+    pluginInnkeeper:
+      generated: false
+      walletkey: "change-me"
+      tenantid: "innkeeper"
+
+tenant_proxy:
+  image:
+    repository: your-docker-repo/traction-tenant-proxy
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    automountServiceAccountToken: true
+    name: ""
+
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+    stabilizationWindowSeconds: 300
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  containerSecurityContext: {}
+  service:
+    type: ClusterIP
+    port: 8032
+
+  openshift:
+    route:
+      enabled: false
+      path: "/"
+      targetPort: http
+      timeout: 2m
+      tls:
+        enabled: true
+        insecureEdgeTerminationPolicy: None
+        termination: edge
+      wildcardPolicy: None
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 50Mi
+    requests:
+      cpu: 10m
+      memory: 50Mi
+
+  networkPolicy:
+    enabled: false
+    ingress:
+      enabled: true
+      namespaceSelector: {}
+      podSelector: {}
+
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+
+ui:
+  enabled: true
+  showOIDCReservationLogin: false
+  quickConnectEndorserName: ""
+  requireEmailForReservation: true
+
+  image:
+    repository: your-docker-repo/traction-tenant-ui
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  existingSecret: ""
+
+  ux:
+    appTitle: "DigiCred CrMS Tenant Console"
+    appInnkeeperTitle: "DigiCred CrMS Innkeeper Console"
+    sidebarTitle: "DigiCred CrMS"
+    copyright: "2024 © DigiCred Holdings"
+    owner: "DigiCred Holdings"
+    coverImageCopyright: "Photo by Jason W on Unsplash"
+
+    aboutBusiness:
+      title: "DigiCred Holdings"
+      linkTitle: "DigiCred Holdings"
+      link: "https://github.com/DigiCred-Holdings/traction"
+      imageUrl: "/img/digicred/digicred.png"
+
+    infoBanner:
+      message: ""
+      messageLevel: info
+      showMessage: false
+
+  oidc:
+    showInnkeeperAdminLogin: true
+    showWritableComponents: true
+    active: true
+    authority: ""
+    client: "innkeeper-frontend"
+    label: "IDIR"
+    jwksUri: ""
+    realm: "Traction"
+    roleName: "innkeeper"
+    session:
+      timeoutSeconds: 600
+      countdownSeconds: 30
+    reservationForm: >-
+      {}
+    extraQueryParams: '{}'
+
+  smtp:
+    server: "maildev"
+    port: 1025
+    secure: false
+    user: ""
+    senderAddress: ""
+    innkeeperInbox: ""
+
+  server:
+    tractionUrl: "http://52.53.223.248:8032"
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    automountServiceAccountToken: true
+    name: ""
+
+  podAnnotations: {}
+  podSecurityContext: {}
+  containerSecurityContext: {}
+  service:
+    type: ClusterIP
+    httpPort: 8080
+
+  networkPolicy:
+    enabled: false
+    ingress:
+      enabled: false
+      namespaceSelector: {}
+      podSelector: {}
+
+  resources:
+    limits:
+      cpu: 300m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 80Mi
+
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+  tolerations: {}
+  affinity: {}
+
+  openshift:
+    route:
+      enabled: false
+      path: "/"
+      targetPort: http
+      timeout: 2m
+      tls:
+        enabled: true
+        insecureEdgeTerminationPolicy: None
+        termination: edge
+      wildcardPolicy: None
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations: {}
+  tls: []
+  hosts:
+    - host: "traction.digicred.services"
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: my-release-traction-tenant-ui
+              port:
+                number: 8080
+    - host: "acapy-traction.digicred.services"
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: my-release-traction-acapy
+              port:
+                number: 8030
+    - host: "admin-traction.digicred.services"
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: my-release-traction-acapy
+              port:
+                number: 8031
+    - host: "proxy-traction.digicred.services"
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: my-release-traction-tenant-proxy
+              port:
+                number: 8032
+
+postgresql:
+  enabled: true
+  fullnameOverride: ""
+  architecture: standalone
+  auth:
+    enablePostgresUser: true
+    existingSecret: '{{ include "global.fullname" . }}'
+    secretKeys:
+      adminPasswordKey: admin-password
+      userPasswordKey: database-password
+    database: traction
+    username: acapy
+
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
+    
+    containerSecurityContext:
+      enabled: false
+    podSecurityContext:
+      enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    service:
+      ports:
+        postgresql: 5432
+    extendedConfiguration: |
+      max_connections = 500
+
+postgresql-ha:
+  enabled: false

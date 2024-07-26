@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traction-agent
+  namespace: digicred-crms
+spec:
+  selector:
+    app: traction-agent
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8030
+      targetPort: 8030
+    - name: admin
+      protocol: TCP
+      port: 8031
+      targetPort: 8031

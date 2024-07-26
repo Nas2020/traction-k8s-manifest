@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endorser-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endorser-agent
+  template:
+    metadata:
+      labels:
+        app: endorser-agent
+    spec:
+      containers:
+      - name: endorser-agent
+        image: ghcr.io/hyperledger/aries-cloudagent-python:py3.9-0.11.0
+        ports:
+        - containerPort: 9030
+        - containerPort: 9031
+        envFrom:
+        - configMapRef:
+            name: endorser-agent-config
+        - secretRef:
+            name: endorser-agent-secrets
+        command: ["/bin/bash", "-c"]
+        args:
+        - |
+          sleep 5;
+          aca-py start \
+          --auto-provision \
+          --arg-file endorser-acapy-args.yml \
+          --inbound-transport http '0.0.0.0' ${ACAPY_ENDORSER_HTTP_PORT} \
+          --webhook-url '${ENDORSER_WEBHOOK_URL}' \
+          --genesis-url '${ACAPY_GENESIS_URL}' \
+          --endpoint ${ACAPY_ENDORSER_ENDPOINT} \
+          --wallet-name '${ENDORSER_ACAPY_WALLET_DATABASE}' \
+          --wallet-key '${ENDORSER_ACAPY_WALLET_ENCRYPTION_KEY}' \
+          --wallet-type '${ENDORSER_ACAPY_WALLET_TYPE}' \
+          --wallet-storage-type '${ENDORSER_ACAPY_WALLET_STORAGE_TYPE}' \
+          --wallet-storage-config '{"url":"${ENDORSER_POSTGRESQL_HOST}:5432","max_connections":5}' \
+          --wallet-storage-creds '{"account":"${POSTGRESQL_USER}","password":"${POSTGRESQL_PASSWORD}","admin_account":"${POSTGRESQL_USER}","admin_password":"${POSTGRESQL_PASSWORD}"}' \
+          --seed '${ACAPY_ENDORSER_SEED}' \
+          --admin '0.0.0.0' ${ACAPY_ENDORSER_ADMIN_PORT} \
+          --label '${ENDORSER_AGENT_NAME}' \
+          ${ENDORSER_ACAPY_ADMIN_CONFIG} \
+          ${ENDORSER_ACAPY_READ_ONLY_MODE} \
+          --endorser-protocol-role endorser \
+          --auto-endorse-transactions
+        volumeMounts:
+        - name: endorser-acapy-args
+          mountPath: /home/aries/endorser-acapy-args.yml
+          subPath: endorser-acapy-args.yml
+      volumes:
+      - name: endorser-acapy-args
+        configMap:
+          name: endorser-acapy-args

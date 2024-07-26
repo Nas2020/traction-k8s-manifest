@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: endorser-agent-1
+spec:
+  selector:
+    app: endorser-agent-1
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9032
+      targetPort: 9032
+    - name: admin
+      protocol: TCP
+      port: 9033
+      targetPort: 9033

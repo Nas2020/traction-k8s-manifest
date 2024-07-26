@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traction-db
+  namespace: digicred-crms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traction-db
+  template:
+    metadata:
+      labels:
+        app: traction-db
+    spec:
+      containers:
+      - name: traction-db
+        image: postgres:14.5
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: digicred-secrets
+              key: POSTGRESQL_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: digicred-secrets
+              key: POSTGRESQL_PASSWORD
+        - name: POSTGRES_DB
+          value: "traction_acapy"
+        volumeMounts:
+        - name: traction-wallet
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: traction-wallet
+        persistentVolumeClaim:
+          claimName: traction-wallet

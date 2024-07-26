@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tenant-ui
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tenant-ui
+  template:
+    metadata:
+      labels:
+        app: tenant-ui
+    spec:
+      containers:
+      - name: tenant-ui
+        image: ghcr.io/nas2020/tenant-ui:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: tenant-ui-config

@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-endorser-api
+  labels:
+    {{- include "digicred-traction.labels" . | nindent 4 }}
+    app.kubernetes.io/component: endorser-api
+spec:
+  replicas: {{ .Values.endorserApi.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "digicred-traction.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: endorser-api
+  template:
+    metadata:
+      labels:
+        {{- include "digicred-traction.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: endorser-api
+    spec:
+      containers:
+        - name: endorser-api
+          image: "{{ .Values.endorserApi.image.repository }}:{{ .Values.endorserApi.image.tag }}"
+          imagePullPolicy: {{ .Values.endorserApi.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.endorserApi.service.port }}
+              protocol: TCP
+          env:
+            - name: POSTGRESQL_HOST
+              value: {{ .Values.endorserApi.env.postgresqlHost | quote }}
+            - name: POSTGRESQL_PORT
+              value: {{ .Values.endorserApi.env.postgresqlPort | quote }}
+            - name: POSTGRESQL_DB
+              value: {{ .Values.endorserApi.env.postgresqlDb | quote }}
+            - name: ENDORSER_API_ADMIN_USER
+              value: {{ .Values.endorserApi.env.adminUser | quote }}
+            - name: ENDORSER_API_ADMIN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "digicred-traction.fullname" . }}-secret
+                  key: ENDORSER_API_ADMIN_KEY
+            - name: ACAPY_ADMIN_URL
+              value: {{ .Values.endorserApi.env.acapyAdminUrl | quote }}
+            - name: ACAPY_ADMIN_URL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "digicred-traction.fullname" . }}-secret
+                  key: ENDORSER_ACAPY_ADMIN_URL_API_KEY
+            - name: ENVIRONMENT
+              value: {{ .Values.endorserApi.env.environment | quote }}
+            - name: TRACTION_WEBHOOK_URL
+              value: {{ .Values.endorserApi.env.tractionWebhookUrl | quote }}
+            - name: ACAPY_WEBHOOK_URL_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "digicred-traction.fullname" . }}-secret
+                  key: ENDORSER_ACAPY_WEBHOOK_URL_API_KEY
+            - name: ENDORSER_API_PORT
+              value: {{ .Values.endorserApi.service.port | quote }}
+          volumeMounts:
+            - name: endorser-files
+              mountPath: /app
+          command: ["/bin/sh"]
+          args: ["-c", "cp -R /app-files/* /app && chmod +x /app/docker-entrypoint.sh && /app/docker-entrypoint.sh"]
+          resources:
+            {{- toYaml .Values.endorserApi.resources | nindent 12 }}
+      volumes:
+        - name: endorser-files
+          configMap:
+            name: {{ include "digicred-traction.fullname" . }}-endorser-files

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tenant-proxy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tenant-proxy
+  template:
+    metadata:
+      labels:
+        app: tenant-proxy
+    spec:
+      containers:
+      - name: tenant-proxy
+        image: ghcr.io/nas2020/tenant-proxy:v1
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: tenant-proxy-config
+        - secretRef:
+            name: tenant-proxy-secrets

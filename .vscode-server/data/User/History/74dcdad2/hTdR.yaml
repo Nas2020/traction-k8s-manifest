@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: endorser-agent-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: endorser-agent-1
+  template:
+    metadata:
+      labels:
+        app: endorser-agent-1
+    spec:
+      containers:
+      - name: endorser-agent-1
+        image: ghcr.io/hyperledger/aries-cloudagent-python:py3.9-0.11.0
+        ports:
+        - containerPort: 9032
+        - containerPort: 9033
+        envFrom:
+        - configMapRef:
+            name: endorser-agent-1-config
+        - secretRef:
+            name: endorser-agent-1-secrets
+        command: ["/bin/bash", "-c"]
+        args:
+        - |
+          sleep 5;
+          aca-py start \
+          --auto-provision \
+          --arg-file endorser-acapy-args.yml \
+          --inbound-transport http '0.0.0.0' ${ACAPY_ENDORSER_1_HTTP_PORT} \
+          --webhook-url '${ENDORSER_1_WEBHOOK_URL}' \
+          --genesis-url '${ACAPY_GENESIS_URL_1}' \
+          --endpoint ${ACAPY_ENDORSER_1_ENDPOINT} \
+          --wallet-name 'endorser-wallet-1' \
+          --wallet-key '${ENDORSER_ACAPY_WALLET_ENCRYPTION_KEY}' \
+          --wallet-type 'askar' \
+          --wallet-storage-type 'postgres_storage' \
+          --wallet-storage-config '{"url":"endorser-db-1:5432","max_connections":5}' \
+          --wallet-storage-creds '{"account":"${POSTGRESQL_USER}","password":"${POSTGRESQL_PASSWORD}","admin_account":"${POSTGRESQL_USER}","admin_password":"${POSTGRESQL_PASSWORD}"}' \
+          --seed '${ACAPY_ENDORSER_SEED_1}' \
+          --admin '0.0.0.0' ${ACAPY_ENDORSER_1_ADMIN_PORT} \
+          --label '${ENDORSER_AGENT_NAME}' \
+          --endorser-protocol-role endorser \
+          --auto-endorse-transactions
+        volumeMounts:
+        - name: endorser-acapy-args
+          mountPath: /home/aries/endorser-acapy-args.yml
+          subPath: endorser-acapy-args.yml
+      volumes:
+      - name: endorser-acapy-args
+        configMap:
+          name: endorser-acapy-args

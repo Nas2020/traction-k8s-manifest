@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "digicred-traction.fullname" . }}-traction-db
+  labels:
+    {{- include "digicred-traction.labels" . | nindent 4 }}
+    app.kubernetes.io/component: traction-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "digicred-traction.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: traction-db
+  template:
+    metadata:
+      labels:
+        {{- include "digicred-traction.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: traction-db
+    spec:
+      containers:
+        - name: traction-db
+          image: "{{ .Values.tractionDb.image.repository }}:{{ .Values.tractionDb.image.tag }}"
+          imagePullPolicy: {{ .Values.tractionDb.image.pullPolicy }}
+          ports:
+            - name: postgresql
+              containerPort: 5432
+              protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.tractionDb.auth.username }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "digicred-traction.fullname" . }}-secret
+                  key: POSTGRESQL_PASSWORD
+            - name: POSTGRES_DB
+              value: {{ .Values.tractionDb.auth.database }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+              subPath: postgresql
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "digicred-traction.fullname" . }}-traction-db
