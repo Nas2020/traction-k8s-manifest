@@ -1,0 +1,41 @@
+2024-07-28 20:03:08.066 [info] 
+
+
+
+
+2024-07-28 20:03:08.081 [info] Extension host agent started.
+2024-07-28 20:03:08.334 [info] [<unknown>][3e483b0c][ExtensionHostConnection] New connection established.
+2024-07-28 20:03:08.336 [info] [<unknown>][fae15e7b][ManagementConnection] New connection established.
+2024-07-28 20:03:08.595 [info] [<unknown>][3e483b0c][ExtensionHostConnection] <249070> Launched Extension Host Process.
+2024-07-28 20:08:08.083 [info] New EH opened, aborting shutdown
+2024-07-28 23:32:03.944 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-28 23:32:38.293 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 00:35:22.190 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 00:35:22.194 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 00:35:22.202 [error] Error: Unexpected SIGPIPE
+    at process.<anonymous> (/home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/server/out/vs/server/node/server.main.js:192:6383)
+    at process.emit (node:events:518:28)
+2024-07-29 00:53:56.659 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 00:54:31.863 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 01:12:22.478 [info] [<unknown>][fae15e7b][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2024-07-29 01:14:57.217 [info] [<unknown>][fae15e7b][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2024-07-29 01:14:57.219 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 01:14:57.223 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 01:32:29.282 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 01:33:03.628 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 01:50:48.182 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 01:50:48.185 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 02:10:18.749 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 02:10:52.734 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 02:15:11.130 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 02:15:11.133 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 02:45:54.996 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 02:46:29.323 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 04:56:22.478 [info] [<unknown>][fae15e7b][ManagementConnection] The client has disconnected, will wait for reconnection 3h before disposing...
+2024-07-29 05:12:49.468 [info] [<unknown>][fae15e7b][ManagementConnection] Another client has connected, will shorten the wait for reconnection 5m before disposing...
+2024-07-29 05:12:49.470 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 05:12:49.474 [info] [<unknown>][3e483b0c][ExtensionHostConnection] The client has reconnected.
+2024-07-29 05:30:17.877 [info] [<unknown>][fae15e7b][ManagementConnection] The client has reconnected.
+2024-07-29 05:35:18.024 [info] [<unknown>][3e483b0c][ExtensionHostConnection] <249070> Extension Host Process exited with code: 0, signal: null.
+2024-07-29 05:35:18.025 [info] Last EH closed, waiting before shutting down
+2024-07-29 05:40:18.026 [info] Last EH closed, shutting down

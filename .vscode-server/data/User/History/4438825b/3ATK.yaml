@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: endorser-api-config
+data:
+  POSTGRESQL_HOST: "endorser-db"
+  POSTGRESQL_PORT: "5432"
+  POSTGRESQL_DB: "traction"
+  ENVIRONMENT: "production"
+  ENDORSER_API_PORT: "5000"
+  TRACTION_WEBHOOK_URL: "http://traction-test.crms.services/endorser-api/webhook"
+  ACAPY_ADMIN_URL: "http://traction-test.crms.services/endorser-agent-admin"

@@ -1,0 +1,166 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traction-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - traction-test.crms.services
+    secretName: traction-test-tls-staging
+  rules:  
+  - host: traction-test.crms.services
+    http:
+      paths:
+      - path: /()(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: tenant-ui
+            port:
+              number: 5101
+      - path: /proxy(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: tenant-proxy
+            port:
+              number: 8032
+      - path: /traction-agent-http(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: traction-agent
+            port:
+              number: 8030
+      - path: /traction-agent-admin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: traction-agent
+            port:
+              number: 8031
+      - path: /endorser-agent-http(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent
+            port:
+              number: 9030
+      - path: /endorser-agent-admin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent
+            port:
+              number: 9031
+      - path: /endorser-agent-1-http(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent-1
+            port:
+              number: 9032
+      - path: /endorser-agent-1-admin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent-1
+            port:
+              number: 9033
+      - path: /endorser-api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-api
+            port:
+              number: 5300
+      - path: /endorser-api-1(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-api-1
+            port:
+              number: 5301
+  - host: a7d57e42b10354295a32f55bcdd13790-828573145.us-west-1.elb.amazonaws.com
+    http:
+      paths:
+      - path: /()(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: tenant-ui
+            port:
+              number: 5101
+      - path: /proxy(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: tenant-proxy
+            port:
+              number: 8032
+      - path: /traction-agent-http(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: traction-agent
+            port:
+              number: 8030
+      - path: /traction-agent-admin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: traction-agent
+            port:
+              number: 8031
+      - path: /endorser-agent-http(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent
+            port:
+              number: 9030
+      - path: /endorser-agent-admin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent
+            port:
+              number: 9031
+      - path: /endorser-agent-1-http(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent-1
+            port:
+              number: 9032
+      - path: /endorser-agent-1-admin(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-agent-1
+            port:
+              number: 9033
+      - path: /endorser-api(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-api
+            port:
+              number: 5300
+      - path: /endorser-api-1(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: endorser-api-1
+            port:
+              number: 5301
+  

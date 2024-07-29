@@ -1,9 +1,11 @@
-Listening on 127.0.0.1:41175
-[2024-07-26 12:54:59] info Disposed of connection to running server.
-looking for token c07b5d15-1c53-41a0-8ead-669ebbfad43f, got Some("c07b5d15-1c53-41a0-8ead-669ebbfad43f")
-[2024-07-26 12:54:59] info Checking /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/log.txt and /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/pid.txt for a running server...
-[2024-07-26 12:54:59] info Found running server (pid=110334)
-looking for token c07b5d15-1c53-41a0-8ead-669ebbfad43f, got Some("c07b5d15-1c53-41a0-8ead-669ebbfad43f")
-[2024-07-26 15:03:29] info Disposed of connection to running server.
-[2024-07-26 15:03:29] info Checking /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/log.txt and /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/pid.txt for a running server...
-[2024-07-26 15:03:29] info Found running server (pid=110334)
+Listening on 127.0.0.1:37689
+[2024-07-29 23:39:56] info Disposed of connection to running server.
+looking for token 42a0888d-0266-4565-92a2-fd9e07106ebd, got Some("42a0888d-0266-4565-92a2-fd9e07106ebd")
+[2024-07-29 23:39:56] info Checking /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/log.txt and /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/pid.txt for a running server...
+[2024-07-29 23:39:56] info Starting server...
+[2024-07-29 23:39:56] info Server started
+looking for token 42a0888d-0266-4565-92a2-fd9e07106ebd, got Some("42a0888d-0266-4565-92a2-fd9e07106ebd")
+[2024-07-29 23:40:06] info Disposed of connection to running server.
+[2024-07-29 23:40:06] info Checking /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/log.txt and /home/ec2-user/.vscode-server/cli/servers/Stable-f1e16e1e6214d7c44d078b1f0607b2388f29d729/pid.txt for a running server...
+[2024-07-29 23:40:06] info Found running server (pid=311833)
+[2024-07-29 23:40:10] info Disposed of connection to running server.

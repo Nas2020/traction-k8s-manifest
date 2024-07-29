@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: endorser-api-1-config
+data:
+  POSTGRESQL_HOST: "endorser-db-1"
+  POSTGRESQL_PORT: "5432"
+  POSTGRESQL_DB: "traction"
+  ENVIRONMENT: "production"
+  ENDORSER_API_PORT: "5001"
+  TRACTION_WEBHOOK_URL: "http://a7d57e42b10354295a32f55bcdd13790-828573145.us-west-1.elb.amazonaws.com/endorser-api-1/webhook"
+  ACAPY_ADMIN_URL: "http://a7d57e42b10354295a32f55bcdd13790-828573145.us-west-1.elb.amazonaws.com/endorser-agent-1-admin"

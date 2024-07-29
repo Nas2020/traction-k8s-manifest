@@ -1,0 +1,9 @@
+2024-07-27 00:30:57.602 [info] 
+
+
+
+
+2024-07-27 00:30:57.617 [info] Extension host agent started.
+2024-07-27 00:30:57.818 [error] [<unknown>][dcee5070][ExtensionHostConnection] Unknown reconnection token (never seen).
+2024-07-27 00:30:57.821 [error] [<unknown>][2296a4fb][ManagementConnection] Unknown reconnection token (never seen).
+2024-07-27 00:35:57.619 [info] Last EH closed, shutting down

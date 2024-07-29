@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tenant-ui-config
+data:
+  IMAGE_BUILDTIME: ""
+  IMAGE_TAG: "scripts_tenant-ui:latest"
+  IMAGE_VERSION: "latest"
+  UX_APP_TITLE: "Traction Tenant Console"
+  UX_APP_INNKEEPER_TITLE: "Traction Innkeeper Console"
+  UX_SIDEBAR_TITLE: "Traction"
+  UX_COPYRIGHT: "2024 © DigiCred Holdings"
+  UX_OWNER: "DigiCred Holdings"
+  FRONTEND_QUICK_CONNECT_ENDORSER_NAME: "digicred-test-endorser"
+  SERVER_SMTP_SERVER: "maildev"
+  SERVER_SMTP_PORT: "1025"
+  SERVER_TRACTION_URL: "http://traction-test.crms.services/proxy"
+  FRONTEND_TENANT_PROXY_URL: "http://traction-test.crms.services/proxy"

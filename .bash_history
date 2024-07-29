@@ -1,400 +1,3 @@
-kubectl apply -f k8s/configmaps/traction-plugin-config.yaml
-kubectl apply -f k8s/configmaps/traction-ledgers-config.yaml
-kubectl apply -f k8s/secrets/traction-agent-secrets.yaml
-kubectl apply -f k8s/deployments/traction-agent-deployment.yaml
-kubectl apply -f k8s/services/traction-agent-service.yaml
-clear
-kubectl apply -f k8s/configmaps/tenant-ui-config.yaml
-kubectl apply -f k8s/deployments/tenant-ui-deployment.yaml
-kubectl apply -f k8s/services/tenant-ui-service.yaml
-kubectl apply -f k8s/deployments/maildev-deployment.yaml
-kubectl apply -f k8s/services/maildev-service.yaml
-kubectl apply -f k8s/configmaps/tenant-proxy-config.yaml
-kubectl apply -f k8s/secrets/tenant-proxy-secrets.yaml
-kubectl apply -f k8s/deployments/tenant-proxy-deployment.yaml
-kubectl apply -f k8s/services/tenant-proxy-service.yaml
-kubectl apply -f k8s/configmaps/endorser-api-config.yaml
-kubectl apply -f k8s/secrets/endorser-api-secrets.yaml
-kubectl apply -f k8s/deployments/endorser-api-deployment.yaml
-kubectl apply -f k8s/services/endorser-api-service.yaml
-clear
-kubectl apply -f k8s/configmaps/endorser-api-1-config.yaml
-kubectl apply -f k8s/secrets/endorser-api-1-secrets.yaml
-kubectl apply -f k8s/deployments/endorser-api-1-deployment.yaml
-kubectl apply -f k8s/services/endorser-api-1-service.yaml
-kubectl apply -f k8s/configmaps/endorser-agent-config.yaml
-kubectl apply -f k8s/configmaps/endorser-acapy-args.yaml
-kubectl apply -f k8s/secrets/endorser-db-secrets.yaml
-kubectl apply -f k8s/secrets/endorser-agent-secrets.yaml
-kubectl apply -f k8s/statefulsets/endorser-db-statefulset.yaml
-kubectl apply -f k8s/services/endorser-db-service.yaml
-kubectl apply -f k8s/deployments/endorser-agent-deployment.yaml
-kubectl apply -f k8s/services/endorser-agent-service.yaml
-clear
-kubectl apply -f k8s/configmaps/endorser-agent-1-config.yaml
-kubectl apply -f k8s/secrets/endorser-db-1-secrets.yaml
-kubectl apply -f k8s/secrets/endorser-agent-1-secrets.yaml
-kubectl apply -f k8s/statefulsets/endorser-db-1-statefulset.yaml
-kubectl apply -f k8s/services/endorser-db-1-service.yaml
-kubectl apply -f k8s/deployments/endorser-agent-1-deployment.yaml
-kubectl apply -f k8s/services/endorser-agent-1-service.yaml
-kubectl apply -f k8s/configmaps/traction-db-config.yaml
-kubectl apply -f k8s/secrets/traction-db-secrets.yaml
-kubectl apply -f k8s/statefulsets/traction-db-statefulset.yaml
-kubectl apply -f k8s/services/traction-db-service.yaml
-kubectl get pods
-kubectl get storageclass
-kubectl describe pod endorser-db-0
-kubectl get pvc
-kubectl get pv
-kubectl get statefulset endorser-db -o yaml | grep -A 5 volumeClaimTemplates
-kubectl get pods -n kube-system | grep ebs
-kubectl describe node | grep "eks.amazonaws.com/nodegroup"
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
-kubectl get pods -n kube-system | grep ebs
-kubectl delete pvc --all
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f ktraction-db-statefulset.yaml
-cd k8s/
-cd statefulsets/
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-clear
-kubectl delete statefulset endorser-db
-kubectl delete statefulset endorser-db-1
-kubectl delete statefulset traction-db
-kubectl delete pvc endorser-db-data-endorser-db-0
-kubectl delete pvc endorser-db-1-data-endorser-db-1-0
-kubectl delete pvc traction-db-data-traction-db-0
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-kubectl get statefulsets
-kubectl get pods
-kubectl get pvc
-kubectl describe statefulset endorser-db
-kubectl describe statefulset endorser-db-1
-kubectl describe statefulset traction-db
-kubectl get events --sort-by=.metadata.creationTimestamp
-kubectl get pvc
-kubectl rollout restart deployment ebs-csi-controller -n kube-system
-kubectl delete pvc --all
-clear
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-kubectl get pvcx
-kubectl get pvc
-kubectl get pv
-kubectl get pods
-clear
-kubectl get pvc
-clear
-kubectl delete pvc --all
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-kubectl get pvc
-kubectl get pods
-kubectl get pv
-kubectl get pods -n kube-system | grep ebs
-kubectl get storageclass gp2 -o yaml
-kubectl describe pvc endorser-db-data-endorser-db-0
-kubectl describe node | grep "iam.amazonaws.com/role"
-clear
-kubectl edit statefulset endorser-db
-clear
-kubectl delete pod endorser-db-0 endorser-db-1-0 traction-db-0
-kubectl get pods -w
-clear
-kubectl get pods
-kubectl logs endorser-db-0
-kubectl delete pod endorser-db-0 endorser-db-1-0 traction-db-0
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-kubectl get pods
-clear
-kubectl logs endorser-db-0
-kubectl logs endorser-db-1-0
-kubectl logs traction-db-0
-kubectl get pods
-kubectl get pvc
-kubectl get pv
-clear
-kubectl get statefulset endorser-db -o yaml
-kubectl describe pod endorser-db-0
-kubectl logs endorser-db-0
-kubectl exec -it endorser-db-0 -- /bin/bash
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-kubectl delete pod endorser-db-0 endorser-db-1-0 traction-db-0
-kubectl logs endorser-db-0
-kubectl logs endorser-db-1-0
-kubectl logs traction-db-0
-clear
-kubectl logs endorser-db-0
-kubectl logs endorser-db-1-0
-kubectl logs traction-db-0
-kubectl get pods
-clear
-kubectl get pvc
-kubectl get pv
-clear
-kubectl get pods
-kubectl logs endorser-db-0
-kubectl logs endorser-db-1-0
-kubectl logs traction-db
-kubectl apply -f endorser-db-statefulset.yaml
-kubectl apply -f endorser-db-1-statefulset.yaml
-kubectl apply -f traction-db-statefulset.yaml
-kubectl delete pod endorser-db-0 endorser-db-1-0 traction-db-0
-clear
-kubectl logs endorser-db-0
-kubectl logs endorser-db-1-0
-kubectl logs traction-db-0
-kubectl get pods
-clear
-kubectl get pods
-kubectl delete pod traction-agent-6ff996bc44-mp8dv endorser-agent-6fbcb478f-25hlj endorser-agent-1-6554c4d749-jt82q
-kubectl get pods
-clear
-kubectl get pods
-kubectl describe pod traction-agent-6ff996bc44-fp97t 
-kubectl describe pod endorser-agent-6fbcb478f-flqdq 
-kubectl describe pod endorser-agent-1-6554c4d749-p6vd2 
-clear
-kubectl get pods
-kubectl logs traction-agent-6ff996bc44-fp97t
-kubectl logs endorser-agent-6fbcb478f-flqdq
-kubectl logs endorser-agent-1-6554c4d749-p6vd2
-ls
-kubectl get pods
-kubectl logs endorser-agent-6fbcb478f-flqdq 
-clear
-cd k8s
-ls
-cd configmaps/
-cat endorser-acapy-args.yaml 
-cat endorser-agent-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-secrets.yaml 
-cd ..
-cd deployments/
-cat endorser-agent-deployment.yaml 
-clear
-cat endorser-agent-1-deployment.yaml 
-cd ..
-cd configmaps/
-cat endorser-agent-1-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-1-secrets.yaml 
-cd k8s/
-clea
-clear
-kubectl apply -f configmaps/endorser-agent-1-config.yaml
-kubectl apply -f secrets/endorser-agent-1-secrets.yaml
-kubectl apply -f deployments/endorser-agent-1-deployment.yaml
-kubectl apply -f configmaps/endorser-acapy-args.yaml
-kubectl apply -f configmaps/ -f secrets/ -f deployments/
-clear
-kubectl get pods
-kubectl logs traction-agent-6ff996bc44-fp97t
-kubectl get pods
-clear
-ls
-cd configmaps/
-cat traction-agent-config.yaml 
-cd ..
-cd secrets/
-cat traction-agent-secrets.yaml 
-cd ..
-cd deployments/
-cat traction-agent-deployment.yaml 
-cd ..
-kubectl apply -f configmaps/traction-agent-config.yaml
-kubectl apply -f secrets/traction-agent-secrets.yaml
-kubectl apply -f deployments/traction-agent-deployment.yaml
-kubectl apply -f configmaps/traction-plugin-config.yaml
-kubectl apply -f configmaps/traction-ledgers-config.yaml
-clear
-kubectl get pods
-kubectl delete pod -l app=traction-agent
-kubectl delete pod -l app=endorser-agent
-kubectl delete pod -l app=endorser-agent-1
-clear
-kubectl get pods
-clear
-kubectl get all
-kubectl get pods
-clear
-kubectl get pods
-kuectl logs endorser-agent-665b7c89bc-6gxkt 
-kubectl logs endorser-agent-665b7c89bc-6gxkt 
-kubectl logs endorser-agent-1-66dfcdd6dc-wpcvh 
-kubectl get configmap endorser-agent-config -o yaml
-kubectl edit configmap endorser-agent-config
-clear
-kubectl get configmap endorser-agent-config -o yaml
-kubectl get configmap endorser-agent-1-config -o yaml
-cler
-clear
-cd k8s
-ls
-cd configmaps/
-ls
-cat endorser-acapy-args.yaml 
-kubectl get configmap endorser-acapy-args -o yaml
-clear
-cat endorser-agent-1-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-1-secrets.yaml 
-cd ..
-cd deployments/
-cat endorser-agent-1-deployment.yaml 
-clear
-cat endorser-agent-1-deployment.yaml 
-cd ..
-cd configmaps/
-cat endorser-agent-1-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-1-secrets.yaml 
-clear
-cat endorser-agent-1-secrets.yaml 
-cd ..
-cd configmaps/
-cat endorser-agent-1-config.yaml 
-cd ..
-cd deployments/
-cat endorser-agent-1-deployment.yaml 
-clear
-cat endorser-agent-1-deployment.yaml 
-cd ..
-cd configmaps/
-cat endorser-agent-1-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-1-secrets.yaml 
-clear
-cd ..
-cd configmaps/
-cat endorser-agent-1-config.yaml 
-cd ..
-cd deployments/
-cat endorser-agent-1-deployment.yaml 
-cd ..
-kubectl apply -f configmaps/endorser-agent-1-config.yaml
-kubectl apply -f deployments/endorser-agent-1-deployment.yaml
-kubectl apply -f secrets/endorser-agent-1-secrets.yaml
-kubectl rollout restart deployment endorser-agent-1
-kubectl rollout status deployment endorser-agent-1
-clear
-kubectl get pods
-kubectl logs endorser-agent-665b7c89bc-6gxkt 
-clear
-cd configmaps/
-cat endorser-agent-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-secrets.yaml 
-cd ..
-cd deployments/
-cat endorser-agent-deployment.yaml 
-cd ..
-clear
-kubectl get pods
-clear
-cd deployments/
-cat endorser-agent-deployment.yaml 
-cd ..
-cd configmaps/
-cat endorser-agent-config.yaml 
-cd ..
-cd secrets/
-cat endorser-agent-secrets.yaml 
-cd ..
-clear
-kubectl apply -f configmaps/endorser-agent-config.yaml
-kubectl apply -f secrets/endorser-agent-secrets.yaml
-kubectl apply -f deployments/endorser-agent-deployment.yaml
-kubectl get pods
-kubectl delete pod endorser-agent-1-6f64c6cf7f-7vtgz
-kubectl delete pod endorser-agent-6484995465-qxb7n
-clear
-kubectl get all
-clear
-kubectl get pods
-kubectl get service tenant-ui
-kubectl logs $(kubectl get pod -l app=tenant-ui -o jsonpath="{.items[0].metadata.name}")
-kubectl logs -n ingress-nginx $(kubectl get pods -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx -o jsonpath='{.items[0].metadata.name}')
-clear
-kubectl get pods
-kubectl logs endorser-agent-6484995465-qns2j 
-kubectl describe endorser-agent-6484995465-qns2j 
-kubectl get pods -l app=tenant-ui
-clear
-kubectl get pods
-kubectl logs endorser-agent-6484995465-qns2j  
-kubectl exec -it endorser-agent-6484995465-qns2j -- env | grep ACAPY_GENESIS
-clear
-kubectl exec -it endorser-agent-6484995465-qns2j -- env | grep ACAPY_GENESIS
-kubectl get deployment endorser-agent -o yaml
-clear
-kubectl get configmap endorser-agent-config -o yaml
-kubectl get secret endorser-agent-secrets -o yaml
-kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash
-kubectl logs -f deployments/endorser-agent
-kubectl rollout restart deployment endorser-agent
-clear
-kubectl get pods
-kubectl edit deployment endorser-agent
-clear
-kubectl logs -f deployments/endorser-agent
-clear
-kubectl get pods
-kubectl delete pod endorser-agent-7b795765dc-dw4qb
-kubectl get pods
-clear
-kubectl logs -f deployments/endorser-agent
-clear
-cd deployments/
-kubectl apply -f endorser-agent-deployment.yaml
-clear
-kubectl rollout status deployment endorser-agent
-cd ..
-clear
-kubectl logs -f deployments/endorser-agent
-cd deployments/
-clear
-cat endorser-agent-deployment.yaml 
-kubectl apply -f endorser-agent-deployment.yaml
-clear
-cd ..
-kubectl rollout status deployment endorser-agent
-kubectl logs -f deployments/endorser-agent
-clear
-cd deployments/
-kubectl apply -f endorser-agent-1-deployment.yaml
-cd ..
-kubectl rollout status deployment endorser-agent-1
-kubectl logs -f deployments/endorser-agent-1
-clear
-kubectl get pods
-kubectl get all
-ls
-clear
-ls
-cd ingress
-ls
-cat traction-ingress.yaml 
-kubectl get pods -n ingress-nginx
 clear
 kubectl get pods -n ingress-nginx
 kubectl get ingress
@@ -998,3 +601,400 @@ kubectl apply -f configmaps/nginx-configuration.yaml
 kubectl rollout restart deployments ingress-nginx-controller
 kubectl apply -f configmaps/nginx-configuration.yaml 
 kubectl rollout restart deployments ingress-nginx-controller
+kubectl get deployment
+kubectl apply -f configmaps/nginx-configuration.yaml
+cd k8s
+kubectl apply -f configmaps/nginx-configuration.yaml
+kubectl apply -f ingress/traction-ingress.yaml
+kubectl rollout restart deployment ingress-nginx-controller
+clear
+ls
+cd ingress/
+ls
+clear
+cat traction-ingress.yaml 
+cd ..
+ls
+cd configmaps/
+clear
+cat tenant-proxy-config.yaml 
+cd ..
+cd deployments/
+cat tenant-proxy-deployment.yaml 
+cd ..
+cd services/
+cat tenant-proxy-service.yaml 
+cd ..
+kubectl apply -f configmaps/nginx-configuration.yaml 
+kubectl rollout restart deployment nginx-ingress-controller
+kubectl rollout restart deployment ingress-nginx-controller
+kubectl apply -f deployments/tenant-proxy-deployment.yaml 
+kubectl rollout restart deployment tenant-proxy
+kubectl apply -f deployments/tenant-proxy-deployment.yaml 
+kubectl rollout restart deployment tenant-proxy
+kubectl get deployments
+kubectl get pods
+kubectl get deploymenta
+kubectl get deployments
+kubectl describe deployment ingress-nginx-controller
+clear
+cd ingress
+cd k8s/
+cd ingress/
+clear
+cat traction-ingress.yaml 
+cd ..
+cd configmaps/
+cat nginx-configuration.yaml 
+cd ..
+cd deployments/
+cat ingress-nginx-controller.yaml 
+cd ..
+kubectl apply -f configmaps/nginx-configuration.yaml 
+kubectl rollout restart deployment ingress-nginx-controller
+clear
+kubectl apply -f confimaps/nginx-configuration.yaml
+kubectl apply -f configmaps/nginx-configuration.yaml
+clear
+cd ingress/
+cd ..
+kubectl rollout restart deployment ingress-nginx-controller
+kubectl apply -f configmaps/nginx-configuration.yaml
+kubectl rollout restart deployment ingress-nginx-controller
+kubectl apply -f configmaps/nginx-configuration.yaml
+kubectl rollout restart deployment ingress-nginx-controller
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl rollout restart deployment ingress-nginx-controller
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl rollout restart deployment ingress-nginx-controller
+clear
+kubectl apply -f configmaps/nginx-configuration.yaml
+kubectl rollout restart deployment ingress-nginx-controller
+kubectl get ingress traction-ingress -o yaml
+clear
+kubectl get ingress traction-ingress -o yaml
+kubectl logs -l app.kubernetes.io/name=ingress-nginx -n ingress-nginx
+kubectl logs -l app.kubernetes.io/name=ingress-nginx
+clear
+kubectl logs -l app.kubernetes.io/name=ingress-nginx
+clear
+kubectl get deployments
+kubectl get pods
+kubectl get deployments
+clear
+kubectl get pods -n default | grep tenant-proxy
+kubectl describe pod tenant-proxy-cd8686dd5-5npsg -n default
+kubectl get pods -n default | grep tenant-proxy
+kubectl describe pod tenant-proxy-65576d8c8f-wsxtn  -n default
+clear
+kubectl get pods
+kubectl logs traction-agent-77bcc6dd97-j7skm
+clear
+kubectl rollout restart deployment traction-agent
+kubectl get pods
+kubectl logs traction-agent-868986c5ff-tkq89 
+clear
+kubectl get all
+kubectl get ingress
+clear
+kubectl get svc
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl describe ingress traction-ingres
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl describe ingress traction-ingress
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl describe ingress traction-ingres
+clear
+ls
+apply -f ingress/traction-ingress.yaml 
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl rollout restart deployment traction-ingress
+kubectl rollout restart deployment ingress-nginx-controller
+clear
+ls
+clear
+ls
+cd ..
+clear
+echo "# traction-k8s-manifest" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Nas2020/traction-k8s-manifest.git
+git push -u origin main
+ls
+git status
+git add .
+git status
+git push
+git commit -m "Initial..."
+git push
+ls
+cd k8s/
+kubectl apply -f ingress/traction-ingress.yaml 
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+clear
+kubectl create namespace cert-manager
+helm install cert-manager jetstack/cert-manager   --namespace cert-manager   --version v1.11.0   --set installCRDs=true
+clear
+kubectl apply -f cluster-issuer.yaml
+kubectl apply -f ingress/traction-ingress
+kubectl apply -f ingress/traction-ingress.yaml
+kubectl get certificate -n default
+clear
+kubectl apply -f cluster-issuer.yaml
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl get certificate -n default
+clear
+cd k8s
+kubectl get certificate -n default
+kubectl get pods -n cert-manager
+kubectl get events -n cert-manager
+kubectl get clusterissuer
+kubectl describe clusterissuer letsencrypt-prod
+kubectl get certificate --all-namespaces
+kubectl get ingress -n default
+clear
+kubectl get ingress -n default
+kubectl describe ingress traction-ingress -n default
+kubcetl apply -f ingress/traction-ingress.yaml 
+clear
+kubectl get certificate -n default
+kubectl apply -f ingress/traction-ingress.yaml
+kubectl get certificate -n default
+clear
+kubectl get certificate -n default
+kubectl describe certificate crms-tls -n default
+clear
+kubectl apply -f ingress/traction-ingress.yaml 
+clear
+pwd
+clear
+cd configmaps/
+clear
+ls
+cat endorser-acapy-args.yaml 
+cat endorser-agent-1-config.yaml 
+cat endorser-agent-config.yaml 
+cat endorser-api-1-config.yaml 
+cat endorser-api-config.yaml 
+cat nginx-configuration.yaml 
+cat tenant-proxy-config.yaml 
+cat tenant-ui-config.yaml 
+cat traction-agent-config.yaml 
+clear
+cd ..
+kubectl apply -f configmaps/
+kubectl rollout restart deployments/
+kubectl rollout restart deployments
+clear
+kubectl get pods
+clear
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+kubectl logs tenant-proxy-75c78f5b74-rjpl6 
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+kubectl logs tenant-proxy-78955df6f7-d2w2f 
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+clesr
+clear
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+clear
+kubectl get pods
+clear
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl apply -f configmaps/
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+clear
+kubectl get pods
+clesr
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+clear
+kubectl get pods
+kubectl rollout restart deployments
+kubectl get pods
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+kubecl apply -f ingress/traction-ingress.yaml 
+kubectl apply -f ingress/traction-ingress.yaml 
+clear
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl describe certificate crms-tls -n default
+kubectl get certificaterequest -n default
+kubectl get certificate -n default
+kubectl get certificate --all-namespaces
+clear
+kubectl apply -f ingress/traction-ingress.yaml 
+clear
+pwad
+clear
+pwd
+ls
+cat cluster-issuer.yaml 
+kubectl delete clusterissuer letsencrypt-prod
+clear
+kubectl apply -f ingress/traction-ingress.yaml 
+clear
+kubectl get ingress -n default traction-ingress -o yaml
+curl -I http://traction-test.crms.services
+kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
+kubectl describe service tenant-ui
+kubectl describe deployment tenant-ui
+clear
+kubectl describe service tenant-ui
+kubectl describe deployment tenant-ui
+clear
+kubectl get pods -A | grep ingress
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+clear
+kubectl get pods
+clear
+kubectl get pods
+kubectl get pods -n cert-manager
+curl -v -X POST   'https://traction-test.crms.services/proxy/ledger/register-nym?did=DNs7VdW359Q2pwGsfycPzj&verkey=7kG6adkPGBQZ2iYd2WuycHZyebUP3fUZxYUSd6trLF7X&alias=New-Tenant-3'   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3YWxsZXRfaWQiOiJhYmEyNjdmMy01YjI5LTQzNTEtYTM2ZS1hYTU3M2NlNWM0MTUiLCJpYXQiOjE3MjIxODgyMjUsImV4cCI6MTc1MzYzNzgyNX0.peNstAkjMUKeCxomE5HOdIi0mCPZSDCpOZu7KW-ytqY'   -H 'Content-Type: application/json'   -d '{}'
+ls
+cd k8s
+clear
+kubectl apply -f cluster-issuer-staging.yaml
+cat cluster-issuer-staging.yaml 
+cd ingress/
+car traction-ingress.yaml 
+cat traction-ingress.yaml 
+clear
+cd ..
+kubectl apply -f traction-ingress.yaml
+kubectl apply -f ingress/traction-ingress.yaml
+clear
+kubectl get ingress
+kubectl get certificate
+clear
+curl -vk https://traction-test.crms.services
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get all
+clear
+kubectl get pods | grep tenant-proxy
+kubectl logs tenant-proxy-ccb6c4594-vlmqr 
+cd k8s
+kubectl apply -f configmaps/
+kubectl rollout restart deployments/
+kubectl rollout restart deployments
+clear
+kubectl get pods
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl get all
+kubectl get pods
+clear
+kubectl apply -f configmaps/
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl rollout restart deployments
+clear
+kubectl get pods
+kubectl apply -f configmaps/nginx-configuration.yaml 
+kubectl rollout restart deployments
+clear
+kubectl get pods
+kubectl apply -f configmaps/
+clear
+kubectl rollout restart deployments
+kubectl get all
+clear
+kubectl get pods
+kubectl logs endorser-agent-6d79977f48-sftmn   
+kubectl logs endorser-agent-1-6f75f7cfdf-82xnz
+kubectl get pods
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get all
+clear
+kubectl get pods
+kubectl apply -f configmaps/
+clear
+kubectl rollout restart deployments
+kubectl get pods
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+clear
+kubectl get pods
+kubectl logs endorser-agent-6b9677b775-88vbv 
+kubectl logs endorser-agent-1-75d7d8b46d-nb7bw 
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+clear
+kubectl get pods
+kubectl logs endorser-agent-1-6878464d88-xn6z5 
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+kubectl get pods
+clear
+kubectl get pods
+kubectl apply -f configmaps/
+kubectl get pods
+clear
+kubectl get pods
+kubectl rollout restart deployments
+clear
+kubectl get pods
+kubectl logs traction-agent-8674557f85-725m6 
+kubectl get pods
+clear
+kubectl get pods
+
+kubectl apply -f configmaps/
+kubectl apply -f ingress/traction-ingress.yaml 
+kubectl rollout restart deployments
+clear
+kubectl get pods
+clear
+kubectl apply -f configmaps/
+kubectl rollout restart deployments
+cd k8s
+kubectl apply -f configmaps/
+clear
+kubectl apply -f ingress/
+kubectl rollout restart deplolyments
+kubectl rollout restart deplolyment
+kubectl rollout restart deplolyment/
+clear
+kubectl rollout restart deployments
+clear

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: endorser-acapy-args
+data:
+  endorser-acapy-args.yml: |
+    auto-accept-invites: true
+    auto-accept-requests: true
+    auto-respond-messages: true
+    auto-ping-connection: true
+    auto-provision: true
+    monitor-ping: true
+    public-invites: true
+    plugin: 'aries_cloudagent.messaging.jsonld'
+    # outbound-transport: http
+    log-level: info
+    endorser-protocol-role: endorser
+    requests-through-public-did: true
+    auto-endorse-transactions: true

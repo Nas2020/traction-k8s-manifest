@@ -1,0 +1,8 @@
+2024-07-29 21:02:31.145 [info] 
+
+
+
+
+2024-07-29 21:02:31.161 [info] Extension host agent started.
+2024-07-29 21:02:31.376 [error] [<unknown>][e0d013f9][ManagementConnection] Unknown reconnection token (never seen).
+2024-07-29 21:07:31.163 [info] Last EH closed, shutting down
